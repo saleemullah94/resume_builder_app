@@ -1,0 +1,65 @@
+{
+  "name": "Resume Builder - Create Professional Resumes",
+  "short_name": "Resume Builder",
+  "description": "Create beautiful, professional resumes on desktop and mobile devices",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#234",
+  "background_color": "#234",
+  "categories": ["productivity", "business"],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%23234' width='540' height='720'/><text x='270' y='360' font-size='60' fill='%230fa' text-anchor='middle' dy='.3em' font-weight='bold'>Resume Builder</text></svg>",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect fill='%23234' width='1280' height='720'/><text x='640' y='360' font-size='80' fill='%230fa' text-anchor='middle' dy='.3em' font-weight='bold'>Resume Builder</text></svg>",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23234' width='192' height='192'/><text x='96' y='96' font-size='100' fill='%230fa' text-anchor='middle' dy='.3em' font-weight='bold'>RB</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23234' width='192' height='192'/><text x='96' y='96' font-size='100' fill='%230fa' text-anchor='middle' dy='.3em' font-weight='bold'>RB</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Create Resume",
+      "short_name": "Create",
+      "description": "Start creating a new resume",
+      "url": "/?action=new",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%23234' width='96' height='96'/><text x='48' y='48' font-size='50' fill='%230fa' text-anchor='middle' dy='.3em'>+</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Professional Resume Builder - Create beautiful resumes on desktop and mobile">
+    <meta name="theme-color" content="#234">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Resume Builder">
+    
+    <title>Resume Builder</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23234' width='192' height='192'/><text x='50%' y='50%' font-size='100' fill='%230fa' text-anchor='middle' dy='.3em' font-weight='bold'>RB</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/8759d659c4.js" crossorigin="anonymous"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-color container clr-primary">
+    
+    <!-- Mode & Theme Toggle (Mobile & Desktop) -->
+    <div class="mode-toggle">
+        <div id="modeToggle" class="dark" onclick="toggleMode()" title="Dark/Light Mode">
+            <ion-icon name="sunny-outline"></ion-icon>
+        </div>
+        <div id="themeColors" class="theme-colors">
+            <ion-icon name="contrast-outline"></ion-icon>
+            <div class="theme-clr" style="--c: #0fa" onclick="changeTheme('#0fa')" title="Green"></div>
+            <div class="theme-clr" style="--c: #0af" onclick="changeTheme('#0af')" title="Blue"></div>
+            <div class="theme-clr" style="--c: #f0a" onclick="changeTheme('#f0a')" title="Pink"></div>
+            <div class="theme-clr" style="--c: #fa0" onclick="changeTheme('#fa0')" title="Orange"></div>
+            <div class="theme-clr" style="--c: #af0" onclick="changeTheme('#af0')" title="Yellow-Green"></div>
+            <div class="theme-clr" style="--c: #a0f" onclick="changeTheme('#a0f')" title="Purple"></div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="mobile-nav-toggle" onclick="toggleMobileNav()">
+            <ion-icon name="menu-outline"></ion-icon>
+        </div>
+        <h1 class="mobile-title"><span class="clr-theme">Resume</span> Builder</h1>
+        <div class="mobile-info-btn" onclick="showMobileInfo()">
+            <ion-icon name="information-circle-outline"></ion-icon>
+        </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNav" class="mobile-nav">
+        <div class="mobile-nav-close" onclick="toggleMobileNav()">
+            <ion-icon name="close-outline"></ion-icon>
+        </div>
+        <nav class="mobile-nav-menu">
+            <a href="#personal" onclick="closeNav()">Personal Info</a>
+            <a href="#education" onclick="closeNav()">Education</a>
+            <a href="#experience" onclick="closeNav()">Experience</a>
+            <a href="#skills" onclick="closeNav()">Skills</a>
+            <a href="#certifications" onclick="closeNav()">Certifications</a>
+            <a href="#preview" onclick="closeNav()">Preview</a>
+        </nav>
+    </div>
+
+    <!-- Main Container -->
+    <div class="resume-builder-container">
+        
+        <!-- Form Section -->
+        <div class="form-section">
+            <div class="form-header">
+                <h1><span class="clr-theme">Resume</span> Builder</h1>
+                <p>Create your professional resume</p>
+            </div>
+
+            <form id="resumeForm">
+                
+                <!-- PERSONAL INFORMATION -->
+                <div class="form-section-card" id="personal">
+                    <div class="section-title">
+                        <ion-icon name="person-outline"></ion-icon>
+                        Personal Information
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" id="firstName" placeholder="John" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" id="lastName" placeholder="Doe" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="email" placeholder="john@example.com" required />
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone" placeholder="+1 (555) 123-4567" />
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="location" placeholder="New York, USA" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Professional Summary</label>
+                        <textarea id="summary" placeholder="Brief overview of your professional background..." rows="3"></textarea>
+                    </div>
+                </div>
+
+                <!-- EDUCATION -->
+                <div class="form-section-card" id="education">
+                    <div class="section-title">
+                        <ion-icon name="school-outline"></ion-icon>
+                        Education
+                    </div>
+                    
+                    <div id="educationFields">
+                        <div class="education-item">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>School/University *</label>
+                                    <input type="text" class="edu-school" placeholder="University Name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Degree *</label>
+                                    <input type="text" class="edu-degree" placeholder="Bachelor of Science" required />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Field of Study *</label>
+                                    <input type="text" class="edu-field" placeholder="Computer Science" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Grade</label>
+                                    <input type="text" class="edu-grade" placeholder="3.8/4.0" />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="date" class="edu-start" />
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="date" class="edu-end" />
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn-remove" onclick="removeEducation(this)">Remove</button>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-add" onclick="addEducation()">
+                        <ion-icon name="add-circle-outline"></ion-icon> Add Education
+                    </button>
+                </div>
+
+                <!-- EXPERIENCE -->
+                <div class="form-section-card" id="experience">
+                    <div class="section-title">
+                        <ion-icon name="briefcase-outline"></ion-icon>
+                        Work Experience
+                    </div>
+                    
+                    <div id="experienceFields">
+                        <div class="experience-item">
+                            <div class="form-group">
+                                <label>Job Title *</label>
+                                <input type="text" class="exp-title" placeholder="Software Developer" required />
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Company *</label>
+                                    <input type="text" class="exp-company" placeholder="Company Name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <input type="text" class="exp-location" placeholder="City, Country" />
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="date" class="exp-start" />
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="date" class="exp-end" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" class="exp-current" />
+                                    Currently Working
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="exp-description" placeholder="Describe your responsibilities and achievements..." rows="3"></textarea>
+                            </div>
+
+                            <button type="button" class="btn-remove" onclick="removeExperience(this)">Remove</button>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-add" onclick="addExperience()">
+                        <ion-icon name="add-circle-outline"></ion-icon> Add Experience
+                    </button>
+                </div>
+
+                <!-- SKILLS -->
+                <div class="form-section-card" id="skills">
+                    <div class="section-title">
+                        <ion-icon name="options-outline"></ion-icon>
+                        Skills
+                    </div>
+                    
+                    <div id="skillsFields">
+                        <div class="skill-item">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Skill Name *</label>
+                                    <input type="text" class="skill-name" placeholder="JavaScript" required />
+                                </div>
+                                <div class="form-group">
+                                    <label>Proficiency</label>
+                                    <select class="skill-level">
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate" selected>Intermediate</option>
+                                        <option value="Advanced">Advanced</option>
+                                        <option value="Expert">Expert</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="btn-remove" onclick="removeSkill(this)">Remove</button>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-add" onclick="addSkill()">
+                        <ion-icon name="add-circle-outline"></ion-icon> Add Skill
+                    </button>
+                </div>
+
+                <!-- CERTIFICATIONS -->
+                <div class="form-section-card" id="certifications">
+                    <div class="section-title">
+                        <ion-icon name="ribbon-outline"></ion-icon>
+                        Certifications
+                    </div>
+                    
+                    <div id="certificationsFields">
+                        <div class="cert-item">
+                            <div class="form-group">
+                                <label>Certification Name *</label>
+                                <input type="text" class="cert-name" placeholder="AWS Certified Solutions Architect" required />
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Issuing Organization</label>
+                                    <input type="text" class="cert-organization" placeholder="Amazon Web Services" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Issue Date</label>
+                                    <input type="date" class="cert-date" />
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn-remove" onclick="removeCertification(this)">Remove</button>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-add" onclick="addCertification()">
+                        <ion-icon name="add-circle-outline"></ion-icon> Add Certification
+                    </button>
+                </div>
+
+                <!-- FORM ACTIONS -->
+                <div class="form-actions">
+                    <button type="submit" class="my-btn btn-primary">
+                        <ion-icon name="save-outline"></ion-icon> <span>Save Resume</span>
+                    </button>
+                    <button type="button" class="my-btn btn-secondary" onclick="previewResume()">
+                        <ion-icon name="eye-outline"></ion-icon> <span>Preview</span>
+                    </button>
+                    <button type="reset" class="my-btn btn-secondary">
+                        <ion-icon name="refresh-outline"></ion-icon> <span>Clear</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview Section (Hidden on Mobile by default) -->
+        <div class="preview-section" id="preview">
+            <div class="preview-header-mobile">
+                <h2>Resume Preview</h2>
+                <button class="close-preview-mobile" onclick="closePreview()">
+                    <ion-icon name="close-outline"></ion-icon>
+                </button>
+            </div>
+            
+            <div id="resumePreview" class="resume-preview">
+                <div class="preview-header">
+                    <h2 id="previewName">Your Name</h2>
+                    <p id="previewContact"></p>
+                </div>
+
+                <div id="previewSummary" class="preview-section-content" style="display:none;">
+                    <h3>Professional Summary</h3>
+                    <p id="summaryContent"></p>
+                </div>
+
+                <div id="previewEducation" class="preview-section-content" style="display:none;">
+                    <h3>Education</h3>
+                    <div id="educationPreview"></div>
+                </div>
+
+                <div id="previewExperience" class="preview-section-content" style="display:none;">
+                    <h3>Work Experience</h3>
+                    <div id="experiencePreview"></div>
+                </div>
+
+                <div id="previewSkills" class="preview-section-content" style="display:none;">
+                    <h3>Skills</h3>
+                    <div id="skillsPreview"></div>
+                </div>
+
+                <div id="previewCertifications" class="preview-section-content" style="display:none;">
+                    <h3>Certifications</h3>
+                    <div id="certificationsPreview"></div>
+                </div>
+            </div>
+
+            <div class="preview-actions">
+                <button class="my-btn" onclick="printResume()">
+                    <ion-icon name="print-outline"></ion-icon> <span>Print</span>
+                </button>
+                <button class="my-btn" onclick="downloadPDF()">
+                    <ion-icon name="download-outline"></ion-icon> <span>PDF</span>
+                </button>
+                <button class="my-btn" onclick="shareResume()">
+                    <ion-icon name="share-social-outline"></ion-icon> <span>Share</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal hide">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+            <ion-icon name="checkmark-circle-outline" class="success-icon"></ion-icon>
+            <h3>Success!</h3>
+            <p id="modalMessage">Resume saved successfully!</p>
+            <button class="my-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading hide">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Install App Button (Mobile) -->
+    <div id="installPrompt" class="install-prompt hide">
+        <div class="install-content">
+            <h3>Install Resume Builder</h3>
+            <p>Get quick access to your resume on the home screen</p>
+            <button class="my-btn" onclick="installApp()">Install</button>
+            <button class="my-btn btn-secondary" onclick="dismissInstall()">Later</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/pwa-register.js"></script>
+</body>
+</html>
